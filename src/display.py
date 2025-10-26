@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import os
+os.environ["QT_LOGGING_RULES"] = "*.debug=false;qt.qpa.*=false;qt.mime.debug=false"
+os.environ["QT_QPA_PLATFORM"] = "windows"
+
 
 # change yuv to rgb
 def yuv2bgr(yuv_in):
