@@ -81,8 +81,8 @@ class ebma_halfPel:
 
         # --- 讀取兩幀（原圖尺度）---
         frames = getYUVFrame(self.video, width, height)
-        anchor_bgr = yuv2bgr(frames.getFrame(29))   # frame 7 = anchor
-        target_bgr = yuv2bgr(frames.getFrame(30))   # frame 8 = target
+        anchor_bgr = yuv2bgr(frames.getFrame(29))   # anchor
+        target_bgr = yuv2bgr(frames.getFrame(30))   # target
 
         # --- 轉 Y 通道（MAD/PSNR 都用亮度）---
         f1_y = bgr_to_y(anchor_bgr)   # anchor Y
