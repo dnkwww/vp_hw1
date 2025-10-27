@@ -24,7 +24,7 @@ python src/project1.py
 
 #### test results
 
-![123][image.png]
+![alt text](image-1.png)
 
 ===== Running EBMA on video 1: akiyo_cif =====
 估算總幀數: 300
