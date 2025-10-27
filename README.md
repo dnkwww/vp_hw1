@@ -24,31 +24,31 @@ python src/project1.py
 
 #### test results
 
-![results_1026](./results/image.png)
+![results_1027](./results/image.png)
 
 ===== Running EBMA on video 1: akiyo_cif =====
 估算總幀數: 300
-processing time = 13.2596 s
-PSNR (target_y vs predict_y) = 35.2917 dB
+processing time = 13.5905 s
+PSNR (target_y vs predict_y) = 32.3723 dB
 
 ===== Running eBMA_halfPel on video 1: akiyo_cif =====
-processing time = 29.0489 s
-PSNR (target_y vs predict_y) = 43.9340 dB
+processing time = 22.7277 s
+PSNR (target_y vs predict_y) = 35.2301 dB
 
 ===== Running hbma on video 1: akiyo_cif =====
-processing time = 15.7779 s
-PSNR (anchor_gray vs predict_gray) = 35.8798 dB
+processing time = 13.8045 s
+PSNR (target_y vs predict_y) = 35.2293 dB
 
 ===== Running EBMA on video 2: foreman_cif =====
 估算總幀數: 300
-processing time = 18.7184 s
-PSNR (target_y vs predict_y) = 21.0730 dB
+processing time = 12.1064 s
+PSNR (target_y vs predict_y) = 20.0760 dB
 
 ===== Running eBMA_halfPel on video 2: foreman_cif =====
-processing time = 28.0230 s
-PSNR (target_y vs predict_y) = 20.1686 dB
+processing time = 20.8205 s
+PSNR (target_y vs predict_y) = 20.7797 dB
 
 ===== Running hbma on video 2: foreman_cif =====
-processing time = 14.4709 s
-PSNR (anchor_gray vs predict_gray) = 21.6273 dB
+processing time = 12.6398 s
+PSNR (target_y vs predict_y) = 20.6537 dB
 
