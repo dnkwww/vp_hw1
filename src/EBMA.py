@@ -3,6 +3,9 @@ import cv2  # 新增：用於 BGR→YCrCb 取得 Y 通道
 from getYuvFrame import getYUVFrame
 from display import displayFrame, yuv2bgr, psnr
 import time
+import os
+import torch
+from torchvision.utils import flow_to_image
 
 
 def bgr_to_y(img_bgr):
@@ -106,6 +109,25 @@ class ebma():
 
         # MV 視覺化維持不變
         # draw_motion_field(mvx, mvy, width, height, 'ebma_mv' + search_params)
+
+        # ==== 產生並存 flow 圖（PyTorch flow_to_image）====
+        # 將區塊級 MV 放大到像素網格
+        mvx_interp = cv2.resize(mvx, (width, height), interpolation=cv2.INTER_NEAREST)
+        mvy_interp = cv2.resize(mvy, (width, height), interpolation=cv2.INTER_NEAREST)
+
+        dense_flow = np.zeros((height, width, 2), dtype=np.float32)
+        dense_flow[:, :, 0] = mvx_interp
+        dense_flow[:, :, 1] = mvy_interp
+
+        flow_tensor = torch.from_numpy(dense_flow).float().permute(2, 0, 1)  # (2,H,W)
+        flow_img = flow_to_image(flow_tensor).permute(1, 2, 0).numpy().astype(np.uint8)  # RGB
+
+        # 存檔到 ./results/test{flag}/ebma_flow.jpg
+        base_dir = './results/'
+        save_dir = os.path.join(base_dir, f'test{self.flag}')
+        os.makedirs(save_dir, exist_ok=True)
+        cv2.imwrite(os.path.join(save_dir, 'ebma_flow.jpg'),
+                    cv2.cvtColor(flow_img, cv2.COLOR_RGB2BGR))
 
         return mvx, mvy
 

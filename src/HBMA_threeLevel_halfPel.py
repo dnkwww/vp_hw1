@@ -5,6 +5,11 @@ import time
 from getYuvFrame import getYUVFrame
 from display import displayFrame, yuv2bgr, psnr
 
+import os
+import torch
+from torchvision.utils import flow_to_image
+
+
 def _ceil_div(a, b):
     return (a + b - 1) // b
 
@@ -208,5 +213,22 @@ class hbma_three_level_halfPel:
         # displayFrame(err_bgr, self.flag, "hbma3_halfPel_error_gray", f"hbma3_halfPel_error_gray_N{N}_Req{self.R}.jpg")
 
         # draw_motion_field(mvx, mvy, W, H, f"hbma3_halfPel_mv_N{N}_Req{self.R}.jpg")
+
+        # ==== 產生並存 flow 圖（PyTorch flow_to_image）====
+        mvx_interp = cv2.resize(mvx, (W0, H0), interpolation=cv2.INTER_NEAREST)
+        mvy_interp = cv2.resize(mvy, (W0, H0), interpolation=cv2.INTER_NEAREST)
+
+        dense_flow = np.zeros((H0, W0, 2), dtype=np.float32)
+        dense_flow[:, :, 0] = mvx_interp
+        dense_flow[:, :, 1] = mvy_interp
+
+        flow_tensor = torch.from_numpy(dense_flow).float().permute(2, 0, 1)  # (2,H,W)
+        flow_img = flow_to_image(flow_tensor).permute(1, 2, 0).numpy().astype(np.uint8)  # RGB
+
+        base_dir = './results/'
+        save_dir = os.path.join(base_dir, f'test{self.flag}')
+        os.makedirs(save_dir, exist_ok=True)
+        cv2.imwrite(os.path.join(save_dir, 'hbma_flow.jpg'),
+                    cv2.cvtColor(flow_img, cv2.COLOR_RGB2BGR))
 
         return mvx, mvy
