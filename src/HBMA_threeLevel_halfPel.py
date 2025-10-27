@@ -23,7 +23,7 @@ class hbma_three_level_halfPel:
       - PSNR 用灰階（anchor_gray vs predict_gray）
       - match() 仍回傳 (mvx, mvy)
     """
-    def __init__(self, video, N, R, flag, anchor_idx=7, target_idx=8):
+    def __init__(self, video, N, R, flag, anchor_idx=29, target_idx=30):
         self.video = video
         self.N = int(N)
         self.R = int(R)
@@ -194,9 +194,9 @@ class hbma_three_level_halfPel:
                         predict_gray[bi*N + rr, bj*N + cc] = self._bilinear_sample(f1_L0_pad, y0+rr, x0+cc)
 
         proc = time.time() - t0
-        P = psnr(anc_gray, predict_gray)
+        P = psnr(tar_gray, predict_gray)
         print(f"processing time = {proc:.4f} s")
-        print(f"PSNR (anchor_gray vs predict_gray) = {P:.4f} dB")
+        print(f"PSNR (target_y vs predict_y) = {P:.4f} dB")
 
         # ===== 視覺化（全部灰圖；送入 displayFrame 前疊成 3 通道）=====
         pred_u8 = np.clip(predict_gray, 0, 255).astype(np.uint8)
@@ -204,7 +204,7 @@ class hbma_three_level_halfPel:
         displayFrame(pred_bgr, self.flag, "hbma3_halfPel_predict_gray",
                      f"hbma3_halfPel_predict_gray_N{N}_Req{self.R}.jpg")
 
-        err = np.clip(np.abs(anc_gray - predict_gray), 0, 255).astype(np.uint8)
+        err = np.clip(np.abs(tar_gray - predict_gray), 0, 255).astype(np.uint8)
         err_bgr = cv2.merge([err, err, err])
         # displayFrame(err_bgr, self.flag, "hbma3_halfPel_error_gray", f"hbma3_halfPel_error_gray_N{N}_Req{self.R}.jpg")
 

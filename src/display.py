@@ -51,19 +51,19 @@ def displayFrame(bgr_in, flag, frameName, save_dir=''):
 
 		#cv2.waitKey(0) # wait until any key is pressed
 	
-# # draw motion field
-# def draw_motion_field(u, v, width, height, save_dir = ''):
-# 	u,v = u/5, v/5
-# 	s = u.shape
-# 	# print(s)
-# 	x,y = np.meshgrid(np.arange(s[0]), np.arange(s[1]))
-# 	plt.figure(1)
-# 	q = plt.quiver(x, y, u, v, scale=1, scale_units='xy', pivot = 'tail', angles = 'xy')
-# 	if len(save_dir) == 0:
-# 		plt.show()
-# 	else:
-# 		plt.savefig(save_dir)
-# 		plt.close()
+# draw motion field
+def draw_motion_field(u, v, width, height, save_dir = ''):
+	u,v = u/5, v/5
+	s = u.shape
+	# print(s)
+	x,y = np.meshgrid(np.arange(s[0]), np.arange(s[1]))
+	plt.figure(1)
+	q = plt.quiver(x, y, u, v, scale=1, scale_units='xy', pivot = 'tail', angles = 'xy')
+	if len(save_dir) == 0:
+		plt.show()
+	else:
+		plt.savefig(save_dir)
+		plt.close()
 
 
 # calcuate the psnr

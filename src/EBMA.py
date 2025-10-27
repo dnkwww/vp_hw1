@@ -41,8 +41,8 @@ class ebma():
         total_frames = file_size // frame_bytes
         print("估算總幀數:", total_frames)
 
-        anchor = yuv2bgr(frames.getFrame(7))   # anchor frame
-        target = yuv2bgr(frames.getFrame(8))   # target frame
+        anchor = yuv2bgr(frames.getFrame(29))   # anchor frame
+        target = yuv2bgr(frames.getFrame(30))   # target frame
 
         d = np.maximum(self.N, self.R)
 
@@ -97,14 +97,14 @@ class ebma():
         displayFrame(cv2.merge([predict_u8]*3), self.flag, 'predict_gray', 'ebma_predict_gray' + search_params)
 
         # PSNR 與誤差圖：灰階對灰階
-        anchor_gray  = bgr_to_y(anchor)                   # H×W float32
-        error_gray = (np.abs(anchor_gray - predict_gray)).clip(0, 255).astype(np.uint8)
+        target_gray  = bgr_to_y(target)                   # H×W float32
+        error_gray = (np.abs(target_gray - predict_gray)).clip(0, 255).astype(np.uint8)
 
-        psnr_val = psnr(anchor_gray, predict_gray)
+        psnr_val = psnr(target_gray, predict_gray)
         # displayFrame(cv2.merge([error_gray]*3), self.flag, 'error_gray', 'ebma_error_gray' + search_params)
         print(f'PSNR (target_y vs predict_y) = {psnr_val:.4f} dB')
 
-        # # MV 視覺化維持不變
+        # MV 視覺化維持不變
         # draw_motion_field(mvx, mvy, width, height, 'ebma_mv' + search_params)
 
         return mvx, mvy
