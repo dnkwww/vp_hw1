@@ -97,7 +97,7 @@ class ebma():
 
         # 顯示/輸出：把灰階疊成 3 通道再顯示
         predict_u8 = predict_gray.clip(0, 255).astype(np.uint8)
-        displayFrame(cv2.merge([predict_u8]*3), self.flag, 'predict_gray', 'ebma_predict_gray.jpg')
+        displayFrame(cv2.merge([predict_u8]*3), self.flag, 'predict_gray', 'ebma_predict.jpg')
 
         # PSNR 與誤差圖：灰階對灰階
         target_gray  = bgr_to_y(target)                   # H×W float32
