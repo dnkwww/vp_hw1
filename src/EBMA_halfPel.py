@@ -183,10 +183,22 @@ class ebma_halfPel:
         psnr_val = psnr(f2_y.astype(np.float32), predict_y.astype(np.float32))
         print(f'PSNR (target_y vs predict_y) = {psnr_val:.4f} dB')
 
-        # 顯示（displayFrame 需要 BGR，這裡把灰階堆 3 通道）
+        # predict（displayFrame 需要 BGR，這裡把灰階堆 3 通道）
         predict_u8 = np.clip(predict_y, 0, 255).astype(np.uint8)
         predict_bgr = cv2.merge([predict_u8, predict_u8, predict_u8])
-        displayFrame(predict_bgr, self.flag, 'predict', 'ebma_halfPel_predict' + search_params)
+        displayFrame(predict_bgr, self.flag, 'predict', 'ebma_halfPel_predict.jpg')
+
+        # anchor
+        anchor_gray = bgr_to_y(anchor_bgr)
+        anchor_u8 = np.clip(anchor_gray, 0, 255).astype(np.uint8)
+        anchor_gray3 = cv2.merge([anchor_u8, anchor_u8, anchor_u8])
+        displayFrame(anchor_gray3, self.flag, 'anchor', 'ebma_halfPel_anchor.jpg')
+        
+        # target
+        target_gray = bgr_to_y(target_bgr)
+        target_u8 = np.clip(target_gray, 0, 255).astype(np.uint8)
+        target_gray3 = cv2.merge([target_u8, target_u8, target_u8])
+        displayFrame(target_gray3, self.flag, 'target', 'ebma_halfPel_target.jpg')
 
         # 灰階誤差圖
         err_u8 = np.clip(np.abs(f2_y - predict_y), 0, 255).astype(np.uint8)

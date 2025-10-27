@@ -201,8 +201,7 @@ class hbma_three_level_halfPel:
         # ===== 視覺化（全部灰圖；送入 displayFrame 前疊成 3 通道）=====
         pred_u8 = np.clip(predict_gray, 0, 255).astype(np.uint8)
         pred_bgr = cv2.merge([pred_u8, pred_u8, pred_u8])
-        displayFrame(pred_bgr, self.flag, "hbma3_halfPel_predict_gray",
-                     f"hbma3_halfPel_predict_gray_N{N}_Req{self.R}.jpg")
+        displayFrame(pred_bgr, self.flag, "hbma3_halfPel_predict_gray", "hbma3_halfPel_predict.jpg")
 
         err = np.clip(np.abs(tar_gray - predict_gray), 0, 255).astype(np.uint8)
         err_bgr = cv2.merge([err, err, err])
