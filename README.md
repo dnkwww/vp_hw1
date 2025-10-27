@@ -24,7 +24,7 @@ python src/project1.py
 
 #### test results
 
-![123](./results/image.png)
+![123][image.png]
 
 ===== Running EBMA on video 1: akiyo_cif =====
 估算總幀數: 300
@@ -52,3 +52,6 @@ PSNR (target_y vs predict_y) = 20.7797 dB
 processing time = 12.6398 s
 PSNR (target_y vs predict_y) = 20.6537 dB
 
+
+
+[def]: ./results/image.png
