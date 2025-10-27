@@ -195,13 +195,13 @@ class ebma_halfPel:
         anchor_gray = bgr_to_y(anchor_bgr)
         anchor_u8 = np.clip(anchor_gray, 0, 255).astype(np.uint8)
         anchor_gray3 = cv2.merge([anchor_u8, anchor_u8, anchor_u8])
-        displayFrame(anchor_gray3, self.flag, 'anchor', 'ebma_halfPel_anchor.jpg')
+        displayFrame(anchor_gray3, self.flag, 'anchor', 'anchor.jpg')
         
         # target
         target_gray = bgr_to_y(target_bgr)
         target_u8 = np.clip(target_gray, 0, 255).astype(np.uint8)
         target_gray3 = cv2.merge([target_u8, target_u8, target_u8])
-        displayFrame(target_gray3, self.flag, 'target', 'ebma_halfPel_target.jpg')
+        displayFrame(target_gray3, self.flag, 'target', 'target.jpg')
 
         # 灰階誤差圖
         err_u8 = np.clip(np.abs(f2_y - predict_y), 0, 255).astype(np.uint8)

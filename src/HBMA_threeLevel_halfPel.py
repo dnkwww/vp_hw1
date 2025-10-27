@@ -20,13 +20,11 @@ def bgr_to_y(img_bgr):
 
 class hbma_three_level_halfPel:
     """
-    讓 A 的 HBMA 行為貼近 B：
       - 全程灰階 MAD/重建
       - reflect padding
       - 等效搜尋範圍：L2=±4 → L1=±4（以 L2*2 為中心）→ L0 整數精煉 ±8 → 半像素 ±0.5
       - 區塊固定 16×16；網格以 L0 步距 16 鋪陣（與 B 相同）
       - PSNR 用灰階（anchor_gray vs predict_gray）
-      - match() 仍回傳 (mvx, mvy)
     """
     def __init__(self, video, N, R, flag, anchor_idx=29, target_idx=30):
         self.video = video
